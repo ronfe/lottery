@@ -1,6 +1,6 @@
 __author__ = 'ronfe'
 
-import os,string
+import os, string
 import numpy as np
 from scipy import stats
 
@@ -16,7 +16,8 @@ for each in originFile:
 lostList = {}
 totalLost = []
 # the first one remains 0
-currentLost = [0,6,2,21,40,0,3,1,0,0,2,3,2,8,13,4,3,1,1,13,0,2,3,2,1,12,4,2,0,7,8,4,0,5]
+currentLost = [0, 6, 2, 21, 40, 0, 3, 1, 0, 0, 2, 3, 2, 8, 13, 4, 3, 1, 1, 13, 0, 2, 3, 2, 1, 12, 4, 2, 0, 7, 8, 4, 0,
+               5]
 
 for i in range(99, -1, -1):
     tempBalls = last100[i]
@@ -32,7 +33,7 @@ for i in range(99, -1, -1):
             totalLost.append(currentLost[tempIndex])
             currentLost[tempIndex] = -1
 
-    currentLost = [x+1 for x in currentLost]
+    currentLost = [x + 1 for x in currentLost]
 
 total = np.array(totalLost)
 # totalNumbers = np.unique(total)
@@ -87,7 +88,7 @@ result = {}
 for each in horP:
     tempResult = horP[each] * verP[each]
     result[each] = tempResult
-sortedRes = sorted(result.iteritems(), key=lambda d:d[1], reverse = True)
+sortedRes = sorted(result.iteritems(), key=lambda d: d[1], reverse=True)
 
 outList = list(sortedRes)
 for each in outList:
