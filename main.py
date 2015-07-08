@@ -16,8 +16,8 @@ for each in originFile:
 lostList = {}
 totalLost = []
 # the first one remains 0
-currentLost = [0, 6, 2, 21, 40, 0, 3, 1, 0, 0, 2, 3, 2, 8, 13, 4, 3, 1, 1, 13, 0, 2, 3, 2, 1, 12, 4, 2, 0, 7, 8, 4, 0,
-               5]
+currentLost = [0, 0, 0, 22, 41, 1, 4, 2, 1, 1, 0, 4, 3, 9, 14, 5, 4, 2, 2, 14, 1, 3, 4, 3, 0, 13, 5, 3, 1, 8, 0, 5, 1,
+               0]
 
 for i in range(99, -1, -1):
     tempBalls = last100[i]
