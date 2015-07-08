@@ -1,7 +1,7 @@
 __author__ = 'ronfe'
 
 import main
-import os
+import os, string
 pwd = os.path.dirname(os.path.realpath(__file__))
 os.chdir(pwd)
 
@@ -26,7 +26,29 @@ def constructText(startIndex):
         g.write(each + '\n')
     g.close()
 
-constructText(383)
+# Construct outer loop for testing
+curTestIssue = len(redHistory)
+initLost = [0, 5,7,6,1,0,6,0,11,4,2,1,0,5,3,7,0,4,2,13,9,1,2,4,3,3,3,1,0,2,10,6,0,9]
+testTimes = 0
+curLost = []
+while curTestIssue >= 101:
+    if testTimes == 0:
+        curLost = initLost
+    else:
+        tempLost = curLost
+        lastResult = redHistory[curTestIssue]
+        for each in lastResult.split(','):
+            tI = string.atoi(each)
+            tempLost[tI] = -1
+        curLost = [x + 1 for x in tempLost]
+
+    constructText(curTestIssue - 1)
+    print curTestIssue
+    testTimes += 1
+    curTestIssue -= 1
+
+
+
 print 'a'
 
 # lost = [0, 0, 0, 22, 41, 1, 4, 2, 1, 1, 0, 4, 3, 9, 14, 5, 4, 2, 2, 14, 1, 3, 4, 3, 0, 13, 5, 3, 1, 8, 0, 5, 1, 0]
