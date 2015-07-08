@@ -6,9 +6,12 @@ from scipy import stats
 
 pwd = os.path.dirname(os.path.realpath(__file__))
 os.chdir(pwd)
+lostList = [0, 0, 0, 22, 41, 1, 4, 2, 1, 1, 0, 4, 3, 9, 14, 5, 4, 2, 2, 14, 1, 3, 4, 3, 0, 13, 5, 3, 1, 8, 0, 5, 1, 0]
 
 # the first one remains 0
-lostList = [0, 0, 0, 22, 41, 1, 4, 2, 1, 1, 0, 4, 3, 9, 14, 5, 4, 2, 2, 14, 1, 3, 4, 3, 0, 13, 5, 3, 1, 8, 0, 5, 1, 0]
+def recordLost(lost):
+    global lostList
+    lostList = lost
 
 
 def generateRedBalls(curLost):
@@ -101,7 +104,7 @@ def generateRedBalls(curLost):
         returnResult.append(each[0])
     return returnResult[0:6]
 
-
+generateRedBalls(lostList)
 def calcSimulationByTimes(times):
     # return a list of simulation based on times
     global lostList
