@@ -1,7 +1,7 @@
 __author__ = 'ronfe'
 
 import main
-import os, string
+import os, string, random
 pwd = os.path.dirname(os.path.realpath(__file__))
 os.chdir(pwd)
 
@@ -26,6 +26,51 @@ def constructText(startIndex):
         g.write(each + '\n')
     g.close()
 
+def generateFixRes(times):
+    out = main.estimateBestBalls(times)
+    blue = random.randint(1, 16)
+    if blue < 10:
+        blue = '0' + str(blue)
+    else:
+        blue = str(blue)
+    res = [out, blue]
+    return res
+
+def generateRandomRes(times):
+    out = main.estimateBestBalls(times)
+    out = out[0:2]
+    tempOut = []
+    for each in out:
+        tempOut.append(string.atoi(each))
+    while len(tempOut) < 6:
+        thisR = random.randint(1, 33)
+        if thisR not in tempOut:
+            tempOut.append(thisR)
+    out = []
+    for each in tempOut:
+        if each < 10:
+            out.append('0' + str(each))
+        else:
+            out.append(str(each))
+    blue = random.randint(1, 16)
+    if blue < 10:
+        blue = '0' + str(blue)
+    else:
+        blue = str(blue)
+    res = [out, blue]
+    return res
+
+def testing(thisLost, testType, trainTimes):
+    # testType: 1 for fixed result, 2 for random result
+    main.recordLost(thisLost)
+    if testType == 1:
+        generateFixRes(trainTimes)
+    else:
+        generateRandomRes(trainTimes)
+
+
+
+
 # Construct outer loop for testing
 curTestIssue = len(redHistory)
 initLost = [0, 5,7,6,1,0,6,0,11,4,2,1,0,5,3,7,0,4,2,13,9,1,2,4,3,3,3,1,0,2,10,6,0,9]
@@ -43,7 +88,9 @@ while curTestIssue >= 101:
         curLost = [x + 1 for x in tempLost]
 
     constructText(curTestIssue - 1)
-    print curTestIssue
+    # start testing
+
+    # end testing
     testTimes += 1
     curTestIssue -= 1
 
