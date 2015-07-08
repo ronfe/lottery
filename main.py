@@ -102,3 +102,29 @@ def generateRedBalls(curLost):
     return returnResult[0:6]
 
 
+def calcSimulationByTimes(times):
+    # return a list of simulation based on times
+    global lostList
+    simList = []
+    for i in range(0, times):
+        simList.append(generateRedBalls(lostList))
+
+    return simList
+
+
+def estimateBestBalls(times):
+    result = calcSimulationByTimes(times)
+    balls = {}
+    for each in result:
+        for i in range(0, 6):
+            ballNo = each[i]
+            if ballNo not in balls:
+                balls[ballNo] = 0
+            balls[ballNo] += 6 - i
+
+    sortedRes = sorted(balls.iteritems(), key=lambda d: d[1], reverse=True)
+    outList = list(sortedRes)
+    returnResult = []
+    for each in outList:
+        returnResult.append(each[0])
+    return returnResult[0:6]
