@@ -60,7 +60,11 @@ def generateRandomRes(times):
     res = [out, blue]
     return res
 
+generalRed = 0
+generalBlue = 0
 def compareResult(genRes, realRed, realBlue):
+    # return a list with the first element indicates the exact red balls and the second indicates the blue one
+    global generalRed, generalBlue
     genRed = genRes[0]
     guessedRed = 0
     for each in genRed:
@@ -71,8 +75,39 @@ def compareResult(genRes, realRed, realBlue):
     if genBlue == realBlue:
         guessedBlue = 1
 
+    generalRed += guessedRed
+    generalBlue += guessedBlue
+
     return [guessedRed, guessedBlue]
 
+award = [0] * 6
+awardPrize = [10000000, 500000, 3000, 200, 10, 5]
+def decideAward(guessedNumber):
+    # return the award info
+    global award, awardPrize
+    tempText = ''
+    if guessedNumber == [6, 1]:
+        award[0] += 1
+        tempText = 'First Prize'
+    elif guessedNumber == [6, 0]:
+        award[1] += 1
+        tempText = 'Second Prize'
+    elif guessedNumber == [5, 1]:
+        award[2] += 1
+        tempText = 'Third Prize'
+    elif guessedNumber in [[5, 0], [4, 1]]:
+        award[3] += 1
+        tempText = 'Fourth Prize'
+    elif guessedNumber in [[4, 0], [3, 1]]:
+        award[4] += 1
+        tempText = 'Fifth Prize'
+    elif guessedNumber in [[2, 1], [1, 1], [0, 1]]:
+        award[5] += 1
+        tempText = 'Sixth Prize'
+    else:
+        tempText = 'No Prize'
+
+    return tempText
 
 def testing(thisLost, testType, trainTimes):
     # testType: 1 for fixed result, 2 for random result
