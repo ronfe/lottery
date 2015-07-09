@@ -60,6 +60,20 @@ def generateRandomRes(times):
     res = [out, blue]
     return res
 
+def compareResult(genRes, realRed, realBlue):
+    genRed = genRes[0]
+    guessedRed = 0
+    for each in genRed:
+        if each in realRed:
+            guessedRed += 1
+    genBlue = genRes[1]
+    guessedBlue = 0
+    if genBlue == realBlue:
+        guessedBlue = 1
+
+    return [guessedRed, guessedBlue]
+
+
 def testing(thisLost, testType, trainTimes):
     # testType: 1 for fixed result, 2 for random result
     main.recordLost(thisLost)
@@ -67,8 +81,6 @@ def testing(thisLost, testType, trainTimes):
         generateFixRes(trainTimes)
     else:
         generateRandomRes(trainTimes)
-
-
 
 
 # Construct outer loop for testing
