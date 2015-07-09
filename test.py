@@ -36,12 +36,16 @@ def generateFixRes(times):
     res = [out, blue]
     return res
 
-def generateRandomRes(times):
+def generateRandomRes(times, rsvBalls):
     out = main.estimateBestBalls(times)
-    out = out[0:2]
-    tempOut = []
-    for each in out:
-        tempOut.append(string.atoi(each))
+    if rsvBalls >= 1:
+        out = out[0:rsvBalls -1]
+        tempOut = []
+        for each in out:
+            tempOut.append(string.atoi(each))
+    else:
+        out = []
+        tempOut = []
     while len(tempOut) < 6:
         thisR = random.randint(1, 33)
         if thisR not in tempOut:
@@ -78,7 +82,7 @@ def compareResult(genRes, realRed, realBlue):
     generalRed += guessedRed
     generalBlue += guessedBlue
 
-    return [guessedRed, guessedBlue]
+    return [guessedRed, 1]
 
 award = [0] * 6
 awardPrize = [10000000, 500000, 3000, 200, 10, 5]
@@ -109,13 +113,16 @@ def decideAward(guessedNumber):
 
     return tempText
 
-def testing(thisLost, testType, trainTimes):
+def testing(thisLost, testType, trainTimes, resRed, resBlue):
     # testType: 1 for fixed result, 2 for random result
     main.recordLost(thisLost)
-    if testType == 1:
-        generateFixRes(trainTimes)
-    else:
-        generateRandomRes(trainTimes)
+
+    a = generateRandomRes(trainTimes, testType)
+
+    b = compareResult(a, resRed, resBlue)
+    c = decideAward(b)
+    t = str(b[0]) + 'red, ' + str(b[1]) + 'blue. ' + c
+    return t
 
 
 # Construct outer loop for testing
@@ -136,11 +143,18 @@ while curTestIssue >= 101:
 
     constructText(curTestIssue - 1)
     # start testing
-
+    testT = testing(curLost, 6, 20, redHistory[curTestIssue -1], blueHistory[curTestIssue -1])
+    print testT
     # end testing
     testTimes += 1
     curTestIssue -= 1
-
+print 'Test Ends'
+print 'Altogether, ' + str(generalRed) + '/' + str(testTimes * 6) + ' red, and ' + str(generalBlue) + '/' + str(testTimes) + ' blue guessed.'
+totalAward = 0
+for i in range(0, 6):
+    totalAward += award[i] * awardPrize[i]
+print 'totalAward: ' + str(totalAward)
+print award
 
 
 print 'a'

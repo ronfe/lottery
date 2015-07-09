@@ -16,7 +16,7 @@ def recordLost(lost):
 
 def generateRedBalls(curLost):
     # return one simulation result
-    originFile = open('last100.txt').readlines()
+    originFile = open('test100.txt').readlines()
     last100 = []
     for each in originFile:
         t = each.strip()
